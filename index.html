@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="public/css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <span class="status">
+        <p class="whatsappVerify">
+            <span class="status-dot whatsapp"></span> Whatsapp: 
+            <span class="status-text">false</span>
+        </p>
+        <p class="numberVerify">
+            <span class="status-dot number"></span> Number: 
+            <span class="status-text">false</span>
+        </p>
+    </span>
+
+    <form>
+        <input type="tel" id="telefone" name="telefone" pattern="\([0-9]{2}\) [0-9]{4}-[0-9]{4}" placeholder="(XX) XXXX-XXXX" required>
+        <button class="numberButton"></button>
+    </form>
+
+    <script src="public/js/status.js"></script>
+
+</body>
+</html>

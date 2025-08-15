@@ -1,4 +1,5 @@
-let isWebZapOpen = false; // cache do estado anterior
+let isWebZapOpen = false;
+let isNumberCorrect = false; 
 
 function updateIconIfNeeded(isOpen) {
   if (isWebZapOpen !== isOpen) {
@@ -13,10 +14,16 @@ async function checkWebZapTabs() {
   const tabs = await chrome.tabs.query({});
   const hasWebZap = tabs.some(tab => tab.url && tab.url.includes("web.whatsapp.com"));
   updateIconIfNeeded(hasWebZap);
+  sendStatusToPopup('whatsapp', hasWebZap);
+
+}
+
+function sendStatusToPopup(type, status) {
+  chrome.runtime.sendMessage({ type, status });
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.url) { // só quando a URL muda
+  if (changeInfo.url) { 
     checkWebZapTabs();
   }
 });
