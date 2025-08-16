@@ -3,13 +3,12 @@
   "name": "WhatsApp Web Scraper",
   "version": "1.0",
   "description": "Coleta mensagens do WhatsApp Web e envia ao backend",
-  "permissions": ["tabs", "scripting"],
+  "permissions": ["tabs", "scripting", "storage"],
   "icons": {
     "16": "images/128px/green_icon.png",
     "32": "images/128px/green_icon.png",
     "48": "images/128px/green_icon.png",
     "128": "images/128px/green_icon.png"
-    
   },
   "action": {
     "default_icon": {
@@ -23,5 +22,8 @@
   },
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "host_permissions": [
+    "https://web.whatsapp.com/*"
+  ]
 }

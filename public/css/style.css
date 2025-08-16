@@ -1,24 +1,12 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    width: 350px;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-}
-
-form{
-    width: 100%;
+    background-color: #ebe8e8;
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
 }
 
-input[type="tel"]{
-    width: 100%;
+input[type="tel"] {
+    width: 87%;
     padding: 15px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
@@ -26,7 +14,7 @@ input[type="tel"]{
     outline: none;
 }
 
-.numberButton{
+.numberButton {
     width: 100%;
     padding: 15px;
     border: none;
@@ -36,8 +24,8 @@ input[type="tel"]{
     cursor: pointer;
 }
 
-.numberButton:houver{
-    background-color: #25D366cc;
+.button:hover {
+    background-color: #14aa4bcc;
 }
 
 .status {
@@ -59,33 +47,13 @@ p {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: red; 
-}
-
-.whatsapp .status-dot {
-    background-color: red; 
-}
-
-.number .status-dot {
-    background-color: red; 
-}
-
-.status-text {
-    font-weight: bold;
+    background-color: red; /* estado inicial */
 }
 
 .status-true .status-dot {
     background-color: green;
 }
 
-.status-true .status-text {
-    color: green;
-}
-
 .status-false .status-dot {
     background-color: red;
-}
-
-.status-false .status-text {
-    color: red;
 }

@@ -1,29 +1,45 @@
 let isWebZapOpen = false;
-let isNumberCorrect = false; 
+let isNumberCorrect = false;
 
 function updateIconIfNeeded(isOpen) {
   if (isWebZapOpen !== isOpen) {
     isWebZapOpen = isOpen;
-    chrome.action.setIcon({
-      path: isOpen ? "images/16px/orange_icon.png" : "images/16px/gray_icon.png"
-    });
+
+    try {
+      chrome.action.setIcon({
+        path: {
+          16: isOpen ? "images/16px/orange_icon.png" : "images/16px/gray_icon.png",
+          32: isOpen ? "images/16px/orange_icon.png" : "images/16px/gray_icon.png"
+        }
+      });
+    } catch (error) {
+      console.error("Erro ao atualizar o ícone:", error);
+    }
+
+    chrome.storage.local.set({ isWebZapOpen });
+  }
+}
+
+function updateNumberStatusInCache(isCorrect) {
+  if (isNumberCorrect !== isCorrect) {
+    isNumberCorrect = isCorrect;
+    chrome.storage.local.set({ isNumberCorrect });
   }
 }
 
 async function checkWebZapTabs() {
   const tabs = await chrome.tabs.query({});
   const hasWebZap = tabs.some(tab => tab.url && tab.url.includes("web.whatsapp.com"));
+
   updateIconIfNeeded(hasWebZap);
-  sendStatusToPopup('whatsapp', hasWebZap);
-
-}
-
-function sendStatusToPopup(type, status) {
-  chrome.runtime.sendMessage({ type, status });
 }
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.url) { 
+  if (changeInfo.url && tab.url && tab.url.includes("web.whatsapp.com")) {
+    if (!isWebZapOpen) {
+      updateIconIfNeeded(true);
+    }
+  } else if (changeInfo.url) {
     checkWebZapTabs();
   }
 });
@@ -33,5 +49,9 @@ chrome.tabs.onActivated.addListener(() => {
 });
 
 chrome.tabs.onRemoved.addListener(() => {
-  checkWebZapTabs();
+  if (isWebZapOpen) {
+    checkWebZapTabs();
+  }
 });
+
+checkWebZapTabs();
